@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Order ID: {{orderID}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <ion-row><ion-col><ion-label>Orderd By: {{fullName}}</ion-label></ion-col></ion-row>
+      <ion-row><ion-col><ion-label>Items Description: {{itemsDescription}}</ion-label></ion-col></ion-row>
+      <ion-row><ion-col><ion-label>Contact: {{contactNumber}}</ion-label></ion-col></ion-row>
+      <ion-row><ion-col><ion-label>Email: {{userEmail}}</ion-label></ion-col></ion-row>
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-card>
+    <ion-card-content>
+      <ion-row><ion-col><ion-label>From: {{departFrom}}</ion-label></ion-col></ion-row>
+      <ion-row><ion-col><ion-label>To: {{destination}}</ion-label></ion-col></ion-row>
+      <!-- Mini-MAP
+        <ion-row><ion-col><ion-label>departFromLatitude: {{departFromLatitude}}</ion-label></ion-col></ion-row>
+        <ion-row><ion-col><ion-label>departFromLongitude: {{departFromLongitude}}</ion-label></ion-col></ion-row>
+        <ion-row><ion-col><ion-label>destinationLatitude: {{destinationLatitude}}</ion-label></ion-col></ion-row>
+        <ion-row><ion-col><ion-label>destinationLongitude: {{destinationLongitude}}</ion-label></ion-col></ion-row>
+      -->
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-card>
+    <ion-card-content>
+      <ion-row><ion-col><ion-label>Order Status: {{orderStatus|titlecase}}</ion-label></ion-col></ion-row>
+      <ion-row *ngIf="isPickedUp"><ion-col><ion-label>Departed At: {{departedAt}}</ion-label></ion-col></ion-row>
+      <ion-row *ngIf="isCompleted"><ion-col><ion-label>Reached At: {{reachedAt}}</ion-label></ion-col></ion-row>
+    </ion-card-content>
+  </ion-card>
+  
+  <!-- <p *ngIf="isCompleted" style="font-style:italic;">Remarks: {{remarks}}</p> -->
+  
+  <ion-button expand="full" shape="round" fill="outline" color="primary" *ngIf="isClient&&(isNew||isAssigned)">Order Submitted</ion-button>
+  
+  <ion-button (click)="assignToDriver($event)" expand="full" shape="round" fill="solid" color="primary" *ngIf="isStaff&&isNew&&!assignButtonClicked">Assign to Truck & Driver</ion-button>
+  
+  <ion-button expand="full" shape="round" fill="outline" color="warning" *ngIf="isStaff&&isAssigned">Awaiting Driver</ion-button>
+  
+  <ion-button expand="full" shape="round" fill="outline" color="primary" *ngIf="isStaff&&isDeclined&&!isAssigned">Re-assign to Truck & Driver</ion-button>
+  
+  <ion-row *ngIf="isDriver">
+    <ion-col align="center">
+      <ion-button (click)="responseOrder($event,'accept')" shape="round" fill="solid" color="success" *ngIf="isDriver&&isAssigned">Accept</ion-button>
+    </ion-col>
+    <ion-col  align="center">
+      <ion-button (click)="responseOrder($event,'decline')" shape="round" fill="solid" color="danger" *ngIf="isDriver&&isAssigned">Decline</ion-button>
+    </ion-col>
+  </ion-row>
+  
+  <ion-button (click)="updateShipping($event,'picked')" expand="full" shape="round" fill="solid" color="warning" *ngIf="isDriver&&isAccepted">Confirm Pickup</ion-button>
+  
+  <ion-button expand="full" shape="round" fill="solid" color="primary" *ngIf="(isStaff||isClient)&&isPickedUp">In Progress!</ion-button>
+  
+  <ion-button (click)="updateShipping($event,'completed')" expand="full" shape="round" fill="solid" color="success" *ngIf="isDriver&&isPickedUp">Complete Order</ion-button>
+  
+  <ion-button expand="full" shape="round" fill="outline" color="dark" *ngIf="isCompleted">Order Completed</ion-button>
+  
+  <ion-card *ngIf="assignButtonClicked">
+    <ion-card-content>
+      <ion-row><ion-col><ion-label>Available Drivers</ion-label>&nbsp;
+        
+        <ion-select [(ngModel)]="selectedDriverID">
+          <ion-select-option *ngFor="let element of availableDrivers; let i=index" [value]="element.driverID"
+          >{{element.driverName}}</ion-select-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+    
+    <ion-row><ion-col><ion-label>Available Trucks</ion-label>&nbsp;
+      <ion-select [(ngModel)]="selectedTruckID">
+        <ion-select-option *ngFor="let element of availableTrucks; let i=index" [value]="element.truckID"
+        >{{element.truckName}}</ion-select-option>
+      </ion-select>
+    </ion-col>
+  </ion-row>
+  
+  <ion-row>
+    <ion-col><ion-button color="success" fill="outline" shape="round" (click)="assignOrder($event)">Assign</ion-button></ion-col>
+    <ion-col><ion-button color="danger" fill="outline" shape="round" (click)="cancelAssignment($event)">Cancel</ion-button></ion-col>
+  </ion-row>
+</ion-card-content>
+</ion-card>
+
+<div #map id="map">
+
+</div>
+
+</ion-content>

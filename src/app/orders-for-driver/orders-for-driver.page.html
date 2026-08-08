@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Orders For You</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngFor="let element of ordersForDriver; let i=index">
+    <ion-item (click)="toSingleOrder($event,element.orderID)">
+      <ion-card>
+      <ion-card-content>
+        <ion-row><ion-col><ion-label>From: {{element.departFrom}}</ion-label></ion-col></ion-row>
+        <ion-row><ion-col><ion-label>To: {{element.destination}}</ion-label></ion-col></ion-row>
+        <ion-row><ion-col><ion-label>Status: {{element.status|titlecase}}</ion-label></ion-col></ion-row>
+      </ion-card-content>
+      </ion-card>
+    </ion-item>
+    </ion-list>
+</ion-content>

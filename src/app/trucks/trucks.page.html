@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Trucks</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list *ngFor="let element of allTrucks; let i=index">
+  <ion-item>
+    {{element.plateNumber}}&nbsp;{{element.truckName}}
+  </ion-item>
+  </ion-list>
+  
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="toAddNewTruck($event)">
+      <fa-icon [icon]="newIcon"></fa-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

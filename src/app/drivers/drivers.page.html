@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Drivers</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list *ngFor="let element of allDrivers; let i=index">
+  <ion-item>
+    <ion-label>{{element.driverName}}</ion-label>&nbsp;
+    <a href="mailto:element.driverEmail"><ion-button shape="round" fill="outline"><fa-icon [icon]="emailIcon"></fa-icon></ion-button></a>&nbsp;
+    <a href="tel:element.contactNumber"><ion-button shape="round" fill="outline"><fa-icon [icon]="phoneIcon"></fa-icon></ion-button></a>
+    
+
+  </ion-item>
+  </ion-list>
+  
+</ion-content>

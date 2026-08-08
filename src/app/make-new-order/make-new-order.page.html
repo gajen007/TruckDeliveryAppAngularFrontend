@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Make New Order</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+     
+      <ion-row>
+        <ion-col>
+          <ion-label>Origin (From)</ion-label>&nbsp;<ion-input type="text" (keyup)="getAddress('from')" [(ngModel)]="departFrom" placeholder="Type and select the Address"></ion-input>
+          <ion-list *ngIf="suggestOrigins">
+            <ion-item 
+            *ngFor="let element of addressSuggessions; let i=index"
+            (click)="setCoordinates(element.address,'from',element.latitude,element.longitude)">{{element.address}}</ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col>
+          <ion-label>Destination (To)</ion-label>&nbsp;<ion-input type="text" (keyup)="getAddress('to')" [(ngModel)]="destination" placeholder="Type and select the Address"></ion-input>
+          <ion-list *ngIf="suggestDestinations">
+            <ion-item 
+            *ngFor="let element of addressSuggessions; let i=index"
+            (click)="setCoordinates(element.address,'to',element.latitude,element.longitude)">{{element.address}}</ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col>
+          <ion-label>Items Description (In Detail)</ion-label>&nbsp;<ion-textarea [(ngModel)]="itemsDescription" placeholder="About the items, Quantity etc."></ion-textarea>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col align="center">
+          <ion-button color="success" size="medium" (click)="makeOrder($event)">Submit Order</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

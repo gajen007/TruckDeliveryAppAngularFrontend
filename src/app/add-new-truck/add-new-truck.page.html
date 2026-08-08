@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add New Truck</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      
+      <ion-row>
+        <ion-col>
+          <ion-label>Truck Name</ion-label>&nbsp;<ion-input type="text" [(ngModel)]="truckName" placeholder="i.e: TATA Sumo"></ion-input>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col>
+          <ion-label>Plate #</ion-label>&nbsp;<ion-input type="text" [(ngModel)]="plateNumber" placeholder="i.e: PQRS 777"></ion-input>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col>
+          <ion-label>Description</ion-label>&nbsp;<ion-textarea type="text" [(ngModel)]="description" placeholder="i.e: Max load 100000 kg"></ion-textarea>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col align="center">
+          <ion-button color="primary" size="medium" (click)="addNewTruck($event)">Add Truck</ion-button>
+        </ion-col>
+      </ion-row>
+      
+    </ion-card-content>
+  </ion-card>
+    
+</ion-content>
